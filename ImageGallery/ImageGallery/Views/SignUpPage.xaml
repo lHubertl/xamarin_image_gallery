@@ -3,6 +3,58 @@
     x:Class="ImageGallery.Views.SignUpPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:extensions="clr-namespace:ImageGallery.Core.Extensions;assembly=ImageGallery.Core"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
-    NavigationPage.HasNavigationBar="False" />
+    NavigationPage.HasNavigationBar="False">
+
+    <StackLayout
+        Padding="20,40"
+        Spacing="20"
+        VerticalOptions="Fill">
+
+        <Image
+            BackgroundColor="Blue"
+            HeightRequest="100"
+            VerticalOptions="CenterAndExpand"
+            WidthRequest="100">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SelectImageCommand}" />
+            </Image.GestureRecognizers>
+        </Image>
+
+        <Entry Placeholder="{extensions:Translation UserName}" Text="{Binding UserName}" />
+        <Entry Placeholder="{extensions:Translation Email}" Text="{Binding Email}" />
+        <Entry
+            IsPassword="True"
+            Placeholder="{extensions:Translation Password}"
+            Text="{Binding Password}" />
+
+        <Button
+            Command="{Binding SignUpCommand}"
+            Text="{extensions:Translation SingUp}"
+            VerticalOptions="StartAndExpand" />
+
+        <!--  Sign In  -->
+
+        <Label
+            FontSize="Medium"
+            HorizontalTextAlignment="Center"
+            VerticalOptions="End">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="{extensions:Translation AlreadyHaveAccount}" TextColor="DarkGray" />
+                    <Span Text="&#x0a;" />
+                    <Span Text="{extensions:Translation SignIn}" TextColor="ForestGreen" />
+                </FormattedString>
+            </Label.FormattedText>
+
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SignInCommand}" />
+            </Label.GestureRecognizers>
+
+        </Label>
+
+    </StackLayout>
+
+</ContentPage>

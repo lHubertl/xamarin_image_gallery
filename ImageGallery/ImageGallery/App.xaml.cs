@@ -1,4 +1,5 @@
-﻿using Prism;
+﻿using ImageGallery.Services;
+using Prism;
 using Prism.Ioc;
 using ImageGallery.ViewModels;
 using ImageGallery.Views;
@@ -29,9 +30,10 @@ namespace ImageGallery
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<SignUpPage, SignUpPageViewModel>();
             containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
+
+            containerRegistry.Register(typeof(ILoginService), typeof(LoginService));
         }
     }
 }
