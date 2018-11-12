@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageGallery.Android", "Ima
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageGallery.iOS", "ImageGallery\ImageGallery.iOS\ImageGallery.iOS.csproj", "{46482F27-41CF-40FF-9293-993618D9A6E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageGallery.Core", "..\ImageGallery.Core\ImageGallery.Core.csproj", "{78FE8D1A-E6DF-43CF-9EEF-C76873C432BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageGallery.Core", "ImageGallery.Core\ImageGallery.Core.csproj", "{78FE8D1A-E6DF-43CF-9EEF-C76873C432BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
