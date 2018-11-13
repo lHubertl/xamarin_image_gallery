@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ImageGallery.Core.BusinessLogic.Responses;
 using ImageGallery.Core.Resources;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Xamarin.Essentials;
 using Xamarin.Forms.Internals;
 
@@ -33,12 +34,12 @@ namespace ImageGallery.Core.BusinessLogic
                     var responseCode = ResponseCode.ServerError;
 
                     var getResult = await httpClient.GetAsync(url, token);
+                    var stringContent = await getResult.Content.ReadAsStringAsync();
 
                     if (getResult.IsSuccessStatusCode)
                     {
                         responseCode = ResponseCode.Ok;
 
-                        var stringContent = await getResult.Content.ReadAsStringAsync();
                         return new ResponseData<string>(stringContent, responseCode);
                     }
 
@@ -49,7 +50,7 @@ namespace ImageGallery.Core.BusinessLogic
                         responseCode = ResponseCode.Unauthorized;
                     }
 
-                    return new ResponseData<string>(responseCode, message);
+                    return new ResponseData<string>(stringContent, responseCode, message);
                 }
 
                 catch (UnauthorizedAccessException unauthorizedAccessException)
@@ -97,12 +98,12 @@ namespace ImageGallery.Core.BusinessLogic
                     var responseCode = ResponseCode.ServerError;
 
                     var postResult = await httpClient.PostAsync(url, content, token);
+                    var stringContent = await postResult.Content.ReadAsStringAsync();
 
                     if (postResult.IsSuccessStatusCode)
                     {
                         responseCode = ResponseCode.Ok;
 
-                        var stringContent = await postResult.Content.ReadAsStringAsync();
                         return new ResponseData<string>(stringContent, responseCode);
                     }
 
@@ -113,7 +114,7 @@ namespace ImageGallery.Core.BusinessLogic
                         responseCode = ResponseCode.Unauthorized;
                     }
 
-                    return new ResponseData<string>(responseCode, message);
+                    return new ResponseData<string>(stringContent, responseCode, message);
                 }
 
                 catch (UnauthorizedAccessException unauthorizedAccessException)
@@ -134,6 +135,49 @@ namespace ImageGallery.Core.BusinessLogic
                     //_logger.Error(exception, exception.Message);
                     return new ResponseData<string>(ResponseCode.Unknown, exception.Message);
                 }
+            }
+        }
+
+        protected IResponseData<T> GetValueFromJson<T>(string json, string property)
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                return new ResponseData<T>(ResponseCode.JsonFail, Strings.E_JsonCanNotBeEmpy);
+            }
+
+            try
+            {
+                var jsonObject = (JObject)JsonConvert.DeserializeObject(json);
+
+                if (jsonObject.TryGetValue(property, out var contentObject))
+                {
+                    T tObject;
+
+                    try
+                    {
+                        tObject = contentObject.ToObject<T>();
+                    }
+                    catch (JsonReaderException e)
+                    {
+                        //_logger.Fatal(e.Message, e);
+                        return new ResponseData<T>(ResponseCode.JsonFail, e.Message);
+                    }
+
+                    return new ResponseData<T>(tObject, ResponseCode.Ok);
+                }
+                return new ResponseData<T>(ResponseCode.ServerError, $"{Strings.E_CanNotFindPropertyInJson}\n \"{property}\"");
+            }
+
+            catch (NullReferenceException e)
+            {
+                //_logger.Error(string.Empty, e);
+                return new ResponseData<T>(ResponseCode.Exception, e.Message);
+            }
+
+            catch (Exception e)
+            {
+                //_logger.Fatal(string.Empty, e);
+                return new ResponseData<T>(ResponseCode.Unknown, e.Message);
             }
         }
 

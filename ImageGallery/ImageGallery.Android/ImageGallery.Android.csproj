@@ -64,6 +64,7 @@
     <PackageReference Include="Prism.Unity.Forms" Version="7.1.0.431" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyServices\PicturePicker.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,6 +91,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ImageGallery.Core\ImageGallery.Core.csproj">
+      <Project>{78FE8D1A-E6DF-43CF-9EEF-C76873C432BC}</Project>
+      <Name>ImageGallery.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ImageGallery\ImageGallery.csproj">
       <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
       <Name>ImageGallery</Name>

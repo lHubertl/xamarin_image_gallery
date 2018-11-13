@@ -16,6 +16,7 @@
         <Image
             BackgroundColor="Blue"
             HeightRequest="100"
+            Source="{Binding UserImageSource}"
             VerticalOptions="CenterAndExpand"
             WidthRequest="100">
             <Image.GestureRecognizers>

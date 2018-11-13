@@ -12,7 +12,8 @@ namespace ImageGallery.Services
 {
     public class LoginService : HttpBaseService, ILoginService
     {
-        public async Task<IResponseData<LoginModel>> SignUpAsync(string userName, string email, string password, FileStream userImage, CancellationToken token)
+        public async Task<IResponseData<LoginModel>> SignUpAsync(string userName, string email, string password,
+            Stream userImage, CancellationToken token)
         {
             var httpContent = new MultipartFormDataContent
             {
@@ -22,7 +23,7 @@ namespace ImageGallery.Services
                 {new StreamContent(userImage), "avatar"}
             };
 
-            var result = await PostAsync(new Uri(WebApi.SignIn), token, null, httpContent);
+            var result = await PostAsync(new Uri(WebApi.SignUp), token, null, httpContent);
 
             if (result.IsSuccess)
             {
@@ -37,14 +38,20 @@ namespace ImageGallery.Services
             var httpContent = new MultipartFormDataContent
             {
                 {new StringContent(email), "email"},
-                {new StringContent(password), "password"},
+                {new StringContent(password), "password"}
             };
 
-            var result = await PostAsync(new Uri(WebApi.SignUp), token, null, httpContent);
+            var result = await PostAsync(new Uri(WebApi.SignIn), token, null, httpContent);
 
             if (result.IsSuccess)
             {
                 return GetValueFromJson<LoginModel>(result.Data);
+            }
+
+            var errorResult = GetValueFromJson<string>(result.Data, "error");
+            if (errorResult.IsSuccess)
+            {
+                return new ResponseData<LoginModel>(result.Code, errorResult.Data);
             }
 
             return new ResponseData<LoginModel>(result.Code, result.ErrorMessage);

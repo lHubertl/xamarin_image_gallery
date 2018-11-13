@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using ImageGallery.Core.BusinessLogic.Repositories;
+using ImageGallery.Core.Commands;
+using ImageGallery.Core.DependencyServices;
 using ImageGallery.Core.Infrastructure;
 using ImageGallery.Models;
 using ImageGallery.Services;
@@ -17,6 +20,7 @@ namespace ImageGallery.ViewModels
 	{
 	    private readonly IDataRepository _dataRepository;
         private readonly ILoginService _loginService;
+	    private Stream _imageStream;
 
         private string _userName;
         public string UserName
@@ -39,16 +43,18 @@ namespace ImageGallery.ViewModels
             set => SetProperty(ref _password, value);
         }
 
-        private FileStream _imageStream;
-	    public FileStream ImageStream
+        private ImageSource _userImageSource;
+        public ImageSource UserImageSource
         {
-            get => _imageStream;
-            set => SetProperty(ref _imageStream, value);
+            get => _userImageSource;
+            set => SetProperty(ref _userImageSource, value);
         }
 
-        public ICommand SignUpCommand => new Command(ExecuteSignUpCommand);
+        public ICommand SignInCommand => new SingleExecutionCommand(ExecuteSignInCommand);
 
-	    public ICommand SelectImageCommand => new Command(ExecuteSelectImageCommand);
+	    public ICommand SignUpCommand => new SingleExecutionCommand(ExecuteSignUpCommand);
+
+	    public ICommand SelectImageCommand => new SingleExecutionCommand(ExecuteSelectImageCommand);
 
 	    public SignUpPageViewModel(
 	        INavigationService navigationService, 
@@ -60,14 +66,14 @@ namespace ImageGallery.ViewModels
             _dataRepository = dataRepository;
         }
 
-	    private async void ExecuteSignUpCommand()
+	    private async Task ExecuteSignUpCommand()
 	    {
 	        if (!IsDataValid())
 	        {
                 return;
 	        }
 
-	        var result = await PerformDataRequestAsync(() => _loginService.SignUpAsync(UserName, Email, Password, ImageStream, CancellationToken.None));
+	        var result = await PerformDataRequestAsync(() => _loginService.SignUpAsync(UserName, Email, Password, _imageStream, CancellationToken.None));
 	        if (result != null)
 	        {
 	            try
@@ -86,16 +92,31 @@ namespace ImageGallery.ViewModels
             }
 	    }
 
-	    private void ExecuteSelectImageCommand()
+	    private async Task ExecuteSelectImageCommand()
 	    {
+	        var stream = await Xamarin.Forms.DependencyService.Get<IPicturePicker>().GetImageStreamAsync();
 
+	        if (stream != null)
+	        {
+                var memoryStream = new MemoryStream();
+                await stream.CopyToAsync(memoryStream);
+                memoryStream.Position = 0;
+                UserImageSource = ImageSource.FromStream(() => new MemoryStream(memoryStream.ToArray()));
+                _imageStream = stream;
+
+	        }
+        }
+
+	    private async Task ExecuteSignInCommand()
+	    {
+	        // TODO: navigate to sign in page
 	    }
 
-	    private bool IsDataValid()
+        private bool IsDataValid()
 	    {
 	        return !string.IsNullOrWhiteSpace(Email) &&
 	               !string.IsNullOrWhiteSpace(Password) &&
-	               ImageStream != null;
+	               _imageStream != null;
 	    }
     }
 }
