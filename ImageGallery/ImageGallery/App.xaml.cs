@@ -1,8 +1,12 @@
-﻿using ImageGallery.Services;
+﻿using System;
+using ImageGallery.Core.BusinessLogic.Repositories;
+using ImageGallery.Models;
+using ImageGallery.Services;
 using Prism;
 using Prism.Ioc;
 using ImageGallery.ViewModels;
 using ImageGallery.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -24,6 +28,25 @@ namespace ImageGallery
         {
             InitializeComponent();
 
+            try
+            {
+                var oauthToken = await SecureStorage.GetAsync(nameof(LoginModel.Token));
+                if (!string.IsNullOrEmpty(oauthToken))
+                {
+                    // Save token to the memory
+                    var dataRepository = Container.Resolve<IDataRepository>();
+                    dataRepository.Set(DataType.Token, oauthToken);
+
+                    // TODO: navigate to Image page
+                    //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SignUpPage)}");
+                    //return;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Possible that device doesn't support secure storage on device.
+            }
+
             await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SignUpPage)}");
         }
 
@@ -32,6 +55,8 @@ namespace ImageGallery
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignUpPage, SignUpPageViewModel>();
             containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
+
+            containerRegistry.RegisterSingleton(typeof(IDataRepository), typeof(DataRepository));
 
             containerRegistry.Register(typeof(ILoginService), typeof(LoginService));
         }
