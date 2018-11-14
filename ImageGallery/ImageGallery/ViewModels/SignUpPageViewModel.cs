@@ -3,12 +3,15 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ImageGallery.Constants;
 using ImageGallery.Core.BusinessLogic.Repositories;
 using ImageGallery.Core.Commands;
 using ImageGallery.Core.DependencyServices;
 using ImageGallery.Core.Infrastructure;
-using ImageGallery.Models;
+using ImageGallery.Core.Managers;
+using ImageGallery.Core.Resources;
 using ImageGallery.Services;
+using ImageGallery.Views;
 using Prism.Navigation;
 using Prism.Services;
 using Xamarin.Essentials;
@@ -20,7 +23,7 @@ namespace ImageGallery.ViewModels
 	{
 	    private readonly IDataRepository _dataRepository;
         private readonly ILoginService _loginService;
-	    private Stream _imageStream;
+	    private MemoryStream _imageStream;
 
         private string _userName;
         public string UserName
@@ -43,7 +46,7 @@ namespace ImageGallery.ViewModels
             set => SetProperty(ref _password, value);
         }
 
-        private ImageSource _userImageSource;
+        private ImageSource _userImageSource = ImageSource.FromFile("user.png");
         public ImageSource UserImageSource
         {
             get => _userImageSource;
@@ -68,18 +71,25 @@ namespace ImageGallery.ViewModels
 
 	    private async Task ExecuteSignUpCommand()
 	    {
-	        if (!IsDataValid())
-	        {
+	        var validation = GetValidationManager();
+
+            if (!validation.IsValid)
+            {
+                var errorMessage = string.Join("\n", validation.Errors);
+                await UserNotificationAsync(errorMessage, Strings.Warning);
                 return;
 	        }
 
-	        var result = await PerformDataRequestAsync(() => _loginService.SignUpAsync(UserName, Email, Password, _imageStream, CancellationToken.None));
+	        IsBusy = true;
+
+            var result = await PerformDataRequestAsync(() => _loginService.SignUpAsync(UserName, Email, Password, _imageStream, CancellationToken.None));
 	        if (result != null)
 	        {
 	            try
 	            {
-	                await SecureStorage.SetAsync(nameof(LoginModel.Token), result.Token);
-	            }
+	                await SecureStorage.SetAsync(DataType.Token.ToString(), result.Token);
+	                await SecureStorage.SetAsync(DataType.AvatarUrl.ToString(), result.AvatarUrl);
+                }
 	            catch (Exception ex)
 	            {
 	                // Possible that device doesn't support secure storage on device.
@@ -87,10 +97,13 @@ namespace ImageGallery.ViewModels
 
                 // Save to the memory
 	            _dataRepository.Set(DataType.Token, result.Token);
+	            _dataRepository.Set(DataType.AvatarUrl, result.AvatarUrl);
 
-                // TODO: navigate to image page
-            }
-	    }
+	            await NavigationService.NavigateAsync(nameof(ImagesPage));
+	        }
+
+	        IsBusy = false;
+        }
 
 	    private async Task ExecuteSelectImageCommand()
 	    {
@@ -102,21 +115,26 @@ namespace ImageGallery.ViewModels
                 await stream.CopyToAsync(memoryStream);
                 memoryStream.Position = 0;
                 UserImageSource = ImageSource.FromStream(() => new MemoryStream(memoryStream.ToArray()));
-                _imageStream = stream;
-
+                _imageStream = memoryStream;
 	        }
         }
 
-	    private async Task ExecuteSignInCommand()
+	    private Task ExecuteSignInCommand()
 	    {
-	        // TODO: navigate to sign in page
+	        var navigationParameters = new NavigationParameters
+	        {
+	            { NavParamKeys.Email, Email },
+	            { NavParamKeys.Password, Password }
+            };
+
+	        return NavigationService.NavigateAsync(nameof(SignInPage), navigationParameters);
 	    }
 
-        private bool IsDataValid()
-	    {
-	        return !string.IsNullOrWhiteSpace(Email) &&
-	               !string.IsNullOrWhiteSpace(Password) &&
-	               _imageStream != null;
+        private ValidationManager GetValidationManager()
+        {
+            return ValidationManager.Create().Validate(() => !string.IsNullOrWhiteSpace(Email), Strings.V_Email)
+                .Validate(() => !string.IsNullOrWhiteSpace(Password), Strings.V_Password)
+                .Validate(() => _imageStream != null, Strings.V_Image);
 	    }
     }
 }

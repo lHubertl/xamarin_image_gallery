@@ -156,4 +156,16 @@
   <data name="SingUp" xml:space="preserve">
     <value>Sing Up</value>
   </data>
+  <data name="V_Email" xml:space="preserve">
+    <value>Email is invalid format</value>
+  </data>
+  <data name="V_Image" xml:space="preserve">
+    <value>Select an image</value>
+  </data>
+  <data name="V_Password" xml:space="preserve">
+    <value>Password is invalid format</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
 </root>

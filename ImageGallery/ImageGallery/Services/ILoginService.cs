@@ -8,7 +8,7 @@ namespace ImageGallery.Services
 {
     public interface ILoginService
     {
-        Task<IResponseData<LoginModel>> SignUpAsync(string userName, string email, string password, Stream userImage, CancellationToken token);
+        Task<IResponseData<LoginModel>> SignUpAsync(string userName, string email, string password, MemoryStream imageStream, CancellationToken token);
         Task<IResponseData<LoginModel>> SignInAsync(string email, string password, CancellationToken token);
     }
 }
