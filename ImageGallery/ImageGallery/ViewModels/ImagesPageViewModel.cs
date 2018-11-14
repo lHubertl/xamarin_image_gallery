@@ -2,23 +2,27 @@
 using System.Windows.Input;
 using ImageGallery.Core.Commands;
 using ImageGallery.Core.Infrastructure;
+using ImageGallery.Views;
 using Prism.Navigation;
 using Prism.Services;
+using Rg.Plugins.Popup.Services;
+using Xamarin.Forms;
 
 namespace ImageGallery.ViewModels
 {
 	public class ImagesPageViewModel : ViewModelBase
 	{
-        public ICommand ShowGifCommand => new SingleExecutionCommand(ExecuteShowGifCommand);
+        public ICommand ShowGifCommand => new Command(ExecuteShowGifCommand);
 	    public ICommand AddImageCommand => new SingleExecutionCommand(ExecuteAddImageCommand);
 
 	    public ImagesPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
         }
 
-	    private Task ExecuteShowGifCommand()
+	    private async void ExecuteShowGifCommand()
 	    {
-	        throw new System.NotImplementedException();
+            await NavigationService.NavigateAsync(nameof(GifPopupPage));
+           //await PopupNavigation.Instance.PushAsync(new GifPopupPage());
 	    }
 
 	    private Task ExecuteAddImageCommand()

@@ -45,12 +45,13 @@ namespace ImageGallery
                 // Possible that device doesn't support secure storage on device.
             }
 
-            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SignUpPage)}");
+            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(ImagesPage)}");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterPopupNavigationService();
+            containerRegistry.RegisterForNavigation<GifPopupPage>();
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<SignUpPage, SignUpPageViewModel>();
             containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();

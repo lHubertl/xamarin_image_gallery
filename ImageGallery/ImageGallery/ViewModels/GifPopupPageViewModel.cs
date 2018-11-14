@@ -7,12 +7,13 @@ using Prism.Navigation;
 using Prism.Logging;
 using Prism.Services;
 using Prism.Mvvm;
+using ImageGallery.Core.Infrastructure;
 
 namespace ImageGallery.ViewModels
 {
-    public class GifPopupPageViewModel : BindableBase
+    public class GifPopupPageViewModel : ViewModelBase
     {
-        protected GifPopupPageViewModel() : base()
+        public GifPopupPageViewModel(INavigationService navigationService, IPageDialogService dialogService) : base(navigationService, dialogService)
         {
         }
     }

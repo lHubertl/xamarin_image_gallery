@@ -4,10 +4,17 @@
                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup" 
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup" 
                  Title="{Binding Title}" 
-                 x:Class="ImageGallery.Views.GifPopupPage"
-                 Padding="100">
+                 x:Class="ImageGallery.Views.GifPopupPage">
     <!-- TODO: // Add Some Content -->
-    <StackLayout> 
-        <Label Text="hi1"/>
-    </StackLayout>
+    <Frame 
+           BackgroundColor="Transparent"
+           HorizontalOptions="CenterAndExpand"
+           VerticalOptions="CenterAndExpand"
+           HeightRequest="200"
+           WidthRequest="300"
+           CornerRadius="2"
+           BorderColor="Gray"
+           Padding="0"> 
+       <WebView Source="http://api.doitserver.in.ua/upload/images/gif/23e067c65f834ca0b9be50277bbc3506.gif"/>
+    </Frame>
 </pages:PopupPage>
