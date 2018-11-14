@@ -3,8 +3,10 @@
     x:Class="ImageGallery.Views.ImagesPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ImageGallery.Core.Controls;assembly=ImageGallery.Core"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-    prism:ViewModelLocator.AutowireViewModel="True">
+    prism:ViewModelLocator.AutowireViewModel="True"
+    BackgroundColor="White">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
@@ -19,5 +21,50 @@
             Priority="0" />
     </ContentPage.ToolbarItems>
 
+    <ScrollView>
+        <StackLayout>
+
+            <ActivityIndicator
+                HorizontalOptions="Center"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Center" />
+
+            <controls:FlexRepeaterView
+                Padding="20"
+                ColumnSpacing="15"
+                HorizontalOptions="Fill"
+                ItemWidth="130"
+                ItemsSource="{Binding Images}"
+                RowSpacing="15">
+                <controls:FlexRepeaterView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            HorizontalOptions="Start"
+                            Spacing="0"
+                            VerticalOptions="Start">
+                            <Image
+                                HorizontalOptions="FillAndExpand"
+                                Source="{Binding SmallImageUrl}"
+                                VerticalOptions="Fill" />
+                            <Label
+                                Margin="5,0"
+                                FontSize="Micro"
+                                LineBreakMode="TailTruncation"
+                                Text="{Binding Parameters.Weather}"
+                                TextColor="Black" />
+                            <Label
+                                Margin="5,0"
+                                FontSize="Micro"
+                                LineBreakMode="TailTruncation"
+                                Text="{Binding Parameters.Place}"
+                                TextColor="Gray" />
+                        </StackLayout>
+                    </DataTemplate>
+                </controls:FlexRepeaterView.ItemTemplate>
+            </controls:FlexRepeaterView>
+
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>

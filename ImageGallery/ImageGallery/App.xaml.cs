@@ -45,7 +45,7 @@ namespace ImageGallery
                 // Possible that device doesn't support secure storage on device.
             }
 
-            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(ImagesPage)}");
+            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SignUpPage)}");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -59,6 +59,7 @@ namespace ImageGallery
             containerRegistry.RegisterSingleton(typeof(IDataRepository), typeof(DataRepository));
 
             containerRegistry.Register(typeof(ILoginService), typeof(LoginService));
+            containerRegistry.Register(typeof(IImageService), typeof(ImageService));
             containerRegistry.RegisterForNavigation<ImagesPage, ImagesPageViewModel>();
         }
 

@@ -10,11 +10,10 @@
            BackgroundColor="Transparent"
            HorizontalOptions="CenterAndExpand"
            VerticalOptions="CenterAndExpand"
-           HeightRequest="200"
+           HeightRequest="220"
            WidthRequest="300"
-           CornerRadius="2"
-           BorderColor="Gray"
+           CornerRadius="0"
            Padding="0"> 
-       <WebView Source="http://api.doitserver.in.ua/upload/images/gif/23e067c65f834ca0b9be50277bbc3506.gif"/>
+       <WebView Source="{Binding Gif}" WidthRequest="300" HeightRequest="300"/>
     </Frame>
 </pages:PopupPage>

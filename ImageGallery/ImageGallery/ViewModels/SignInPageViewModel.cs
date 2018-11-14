@@ -13,6 +13,7 @@ using ImageGallery.Views;
 using Prism.Navigation;
 using Prism.Services;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace ImageGallery.ViewModels
 {
@@ -74,7 +75,7 @@ namespace ImageGallery.ViewModels
 
 	        IsBusy = true;
 
-            var result = await PerformDataRequestAsync(() => _loginService.SignInAsync(Email, Password, CancellationToken.None));
+            var result = await PerformDataRequestAsync(() => _loginService.SignInAsync(Email, Password, CancellationToken.None), false);
 	        if (result != null)
 	        {
 	            try
@@ -91,7 +92,9 @@ namespace ImageGallery.ViewModels
 	            _dataRepository.Set(DataType.Token, result.Token);
 	            _dataRepository.Set(DataType.AvatarUrl, result.AvatarUrl);
 
-	            await NavigationService.NavigateAsync(nameof(ImagesPage));
+	            var navigationPath = $"app:///{nameof(NavigationPage)}/{nameof(ImagesPage)}";
+	            var navigationUri = new Uri(navigationPath, UriKind.Absolute);
+                await NavigationService.NavigateAsync(navigationUri);
             }
 
 	        IsBusy = false;

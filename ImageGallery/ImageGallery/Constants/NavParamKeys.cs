@@ -4,5 +4,6 @@
     {
         internal static string Email => "email";
         internal static string Password => "password";
+        internal static string GifUrl => "gifurl";
     }
 }
