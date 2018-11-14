@@ -99,8 +99,10 @@ namespace ImageGallery.ViewModels
 	            _dataRepository.Set(DataType.Token, result.Token);
 	            _dataRepository.Set(DataType.AvatarUrl, result.AvatarUrl);
 
-	            await NavigationService.NavigateAsync(nameof(ImagesPage));
-	        }
+	            var navigationPath = $"app:///{nameof(NavigationPage)}/{nameof(ImagesPage)}";
+	            var navigationUri = new Uri(navigationPath, UriKind.Absolute);
+	            await NavigationService.NavigateAsync(navigationUri);
+            }
 
 	        IsBusy = false;
         }
