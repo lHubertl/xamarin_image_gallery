@@ -23,7 +23,7 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>ImageGallery</string>
+	<string>Image Gallery App</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.jetsoftpro.imagegallery</string>
 	<key>CFBundleVersion</key>
