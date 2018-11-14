@@ -3,10 +3,17 @@
     x:Class="ImageGallery.Views.SignUpPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:ImageGallery.Core.Converters;assembly=ImageGallery.Core"
     xmlns:extensions="clr-namespace:ImageGallery.Core.Extensions;assembly=ImageGallery.Core"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
     NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:BoolConverter x:Key="BoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <StackLayout
         Padding="20,40"
@@ -33,15 +40,17 @@
 
         <Button
             Command="{Binding SignUpCommand}"
-            Text="{extensions:Translation SingUp}"
-            VerticalOptions="StartAndExpand" />
+            IsVisible="{Binding IsBusy, Converter={StaticResource BoolConverter}}"
+            Text="{extensions:Translation SingUp}" />
+
+        <ActivityIndicator HorizontalOptions="Center" IsRunning="{Binding IsBusy}" />
 
         <!--  Sign In  -->
 
         <Label
             FontSize="Medium"
             HorizontalTextAlignment="Center"
-            VerticalOptions="End">
+            VerticalOptions="EndAndExpand">
             <Label.FormattedText>
                 <FormattedString>
                     <Span Text="{extensions:Translation AlreadyHaveAccount}" TextColor="DarkGray" />

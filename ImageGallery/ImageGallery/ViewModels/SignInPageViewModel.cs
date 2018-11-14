@@ -71,7 +71,9 @@ namespace ImageGallery.ViewModels
 	            return;
 	        }
 
-	        var result = await PerformDataRequestAsync(() => _loginService.SignInAsync(Email, Password, CancellationToken.None));
+	        IsBusy = true;
+
+            var result = await PerformDataRequestAsync(() => _loginService.SignInAsync(Email, Password, CancellationToken.None));
 	        if (result != null)
 	        {
 	            try
@@ -90,9 +92,11 @@ namespace ImageGallery.ViewModels
 
                 // TODO: navigate to image page
             }
+
+	        IsBusy = false;
         }
 
-	    private ValidationManager GetValidationManager()
+        private ValidationManager GetValidationManager()
 	    {
 	        return ValidationManager.Create().Validate(() => !string.IsNullOrWhiteSpace(Email), Strings.V_Email)
 	            .Validate(() => !string.IsNullOrWhiteSpace(Password), Strings.V_Password);
