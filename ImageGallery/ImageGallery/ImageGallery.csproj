@@ -24,4 +24,7 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Views\UploadNewPicturePage.cs" />
+  </ItemGroup>
 </Project>
