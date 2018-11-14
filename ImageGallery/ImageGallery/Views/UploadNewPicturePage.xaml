@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="ImageGallery.Views.UploadNewPicturePage"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding SaveImageCommand}"
+                     Icon="done_24"
+                     Order="Primary"
+                     Priority="0" />
+    </ContentPage.ToolbarItems>
+    
+    <StackLayout Padding="20,40"
+                 Spacing="20"
+                 HorizontalOptions="FillAndExpand"
+                 VerticalOptions="FillAndExpand">
+        
+        <Image Source="{Binding UserImageSource}" 
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="Start"
+               HeightRequest="200">
+           
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding SelectImageCommand}" />
+            </Image.GestureRecognizers>
+            
+        </Image>
+        
+        <Entry Placeholder="Description" Text="{Binding Description}" />
+        
+        <Entry Placeholder="#hashtag" Text="{Binding Hashtag}" />
+               
+    </StackLayout>
+    
+</ContentPage>

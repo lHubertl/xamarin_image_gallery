@@ -16,54 +16,62 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <StackLayout
-        Padding="20,40"
-        Spacing="20"
-        VerticalOptions="Fill">
+    <ScrollView>
+        <StackLayout
+            Padding="20,40"
+            Spacing="20"
+            VerticalOptions="Fill">
 
-        <Image
-            HorizontalOptions="Center"
-            Source="{Binding UserImageSource}"
-            VerticalOptions="CenterAndExpand">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SelectImageCommand}" />
-            </Image.GestureRecognizers>
-        </Image>
+            <ContentView
+                HeightRequest="200"
+                HorizontalOptions="Center"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="200">
+                <Image
+                    HorizontalOptions="Center"
+                    Source="{Binding UserImageSource}"
+                    VerticalOptions="Center">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectImageCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </ContentView>
 
-        <Entry Placeholder="{extensions:Translation UserName}" Text="{Binding UserName}" />
-        <Entry Placeholder="{extensions:Translation Email}" Text="{Binding Email}" />
-        <Entry
-            IsPassword="True"
-            Placeholder="{extensions:Translation Password}"
-            Text="{Binding Password}" />
+            <Entry Placeholder="{extensions:Translation UserName}" Text="{Binding UserName}" />
+            <Entry Placeholder="{extensions:Translation Email}" Text="{Binding Email}" />
+            <Entry
+                IsPassword="True"
+                Placeholder="{extensions:Translation Password}"
+                Text="{Binding Password}" />
 
-        <Button
-            Command="{Binding SignUpCommand}"
-            IsVisible="{Binding IsBusy, Converter={StaticResource BoolConverter}}"
-            Text="{extensions:Translation SingUp}" />
+            <Button
+                Command="{Binding SignUpCommand}"
+                IsVisible="{Binding IsBusy, Converter={StaticResource BoolConverter}}"
+                Text="{extensions:Translation SingUp}" />
 
-        <ActivityIndicator HorizontalOptions="Center" IsRunning="{Binding IsBusy}" />
+            <ActivityIndicator HorizontalOptions="Center" IsRunning="{Binding IsBusy}" />
 
-        <!--  Sign In  -->
+            <!--  Sign In  -->
 
-        <Label
-            FontSize="Medium"
-            HorizontalTextAlignment="Center"
-            VerticalOptions="EndAndExpand">
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="{extensions:Translation AlreadyHaveAccount}" TextColor="DarkGray" />
-                    <Span Text="&#x0a;" />
-                    <Span Text="{extensions:Translation SignIn}" TextColor="ForestGreen" />
-                </FormattedString>
-            </Label.FormattedText>
+            <Label
+                FontSize="Medium"
+                HorizontalTextAlignment="Center"
+                VerticalOptions="EndAndExpand">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{extensions:Translation AlreadyHaveAccount}" TextColor="DarkGray" />
+                        <Span Text="&#x0a;" />
+                        <Span Text="{extensions:Translation SignIn}" TextColor="ForestGreen" />
+                    </FormattedString>
+                </Label.FormattedText>
 
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding SignInCommand}" />
-            </Label.GestureRecognizers>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SignInCommand}" />
+                </Label.GestureRecognizers>
 
-        </Label>
+            </Label>
 
-    </StackLayout>
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>

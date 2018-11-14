@@ -22,10 +22,10 @@
 	</array>
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
-	<key>CFBundleDisplayName</key>
-	<string>Image Gallery App</string>
-	<key>CFBundleIdentifier</key>
-	<string>com.jetsoftpro.imagegallery</string>
+    <key>CFBundleDisplayName</key>
+    <string>Image Gallery App</string>
+  <key>CFBundleIdentifier</key>
+  <string>com.jetsoftpro.imagegallery</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleIconFiles</key>
@@ -52,6 +52,8 @@
 	<string>Picture Picker uses photo library</string>
 	<key>CFBundleName</key>
 	<string>ImageGallery</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access location when open.</string>
 
 	<key>NSAppTransportSecurity</key>
    <dict>

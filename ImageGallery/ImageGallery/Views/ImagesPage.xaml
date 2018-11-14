@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:ImageGallery.Core.Controls;assembly=ImageGallery.Core"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    x:Name="BaseContent"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="White">
 
@@ -22,7 +23,47 @@
     </ContentPage.ToolbarItems>
 
     <ScrollView>
-        <StackLayout>
+        <Grid>
+            <StackLayout>
+                <controls:FlexRepeaterView
+                    Padding="20"
+                    BackgroundColor="Red"
+                    ColumnSpacing="15"
+                    HorizontalOptions="Fill"
+                    ItemWidth="130"
+                    ItemsSource="{Binding Images}"
+                    RowSpacing="15"
+                    VerticalOptions="Start">
+                    <controls:FlexRepeaterView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout
+                                HorizontalOptions="Start"
+                                Spacing="0"
+                                VerticalOptions="Start">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference BaseContent}, Path=BindingContext.TapOnImageCommand}" CommandParameter="{Binding .}" />
+                                </StackLayout.GestureRecognizers>
+                                <Image
+                                    HorizontalOptions="FillAndExpand"
+                                    Source="{Binding SmallImageUrl}"
+                                    VerticalOptions="Fill" />
+                                <Label
+                                    Margin="5,0"
+                                    FontSize="Micro"
+                                    LineBreakMode="TailTruncation"
+                                    Text="{Binding Parameters.Weather}"
+                                    TextColor="Black" />
+                                <Label
+                                    Margin="5,0"
+                                    FontSize="Micro"
+                                    LineBreakMode="TailTruncation"
+                                    Text="{Binding Parameters.Place}"
+                                    TextColor="Gray" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </controls:FlexRepeaterView.ItemTemplate>
+                </controls:FlexRepeaterView>
+            </StackLayout>
 
             <ActivityIndicator
                 HorizontalOptions="Center"
@@ -30,41 +71,7 @@
                 IsVisible="{Binding IsBusy}"
                 VerticalOptions="Center" />
 
-            <controls:FlexRepeaterView
-                Padding="20"
-                ColumnSpacing="15"
-                HorizontalOptions="Fill"
-                ItemWidth="130"
-                ItemsSource="{Binding Images}"
-                RowSpacing="15">
-                <controls:FlexRepeaterView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout
-                            HorizontalOptions="Start"
-                            Spacing="0"
-                            VerticalOptions="Start">
-                            <Image
-                                HorizontalOptions="FillAndExpand"
-                                Source="{Binding SmallImageUrl}"
-                                VerticalOptions="Fill" />
-                            <Label
-                                Margin="5,0"
-                                FontSize="Micro"
-                                LineBreakMode="TailTruncation"
-                                Text="{Binding Parameters.Weather}"
-                                TextColor="Black" />
-                            <Label
-                                Margin="5,0"
-                                FontSize="Micro"
-                                LineBreakMode="TailTruncation"
-                                Text="{Binding Parameters.Place}"
-                                TextColor="Gray" />
-                        </StackLayout>
-                    </DataTemplate>
-                </controls:FlexRepeaterView.ItemTemplate>
-            </controls:FlexRepeaterView>
-
-        </StackLayout>
+        </Grid>
     </ScrollView>
 
 </ContentPage>

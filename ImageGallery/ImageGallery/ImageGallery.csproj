@@ -30,6 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="gif.htm" />
+    <Compile Remove="Views\UploadNewPicturePage.cs" />
   </ItemGroup>
 </Project>
