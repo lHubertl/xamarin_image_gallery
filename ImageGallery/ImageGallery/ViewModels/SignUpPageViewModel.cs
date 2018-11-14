@@ -82,7 +82,7 @@ namespace ImageGallery.ViewModels
 
 	        IsBusy = true;
 
-            var result = await PerformDataRequestAsync(() => _loginService.SignUpAsync(UserName, Email, Password, _imageStream, CancellationToken.None));
+            var result = await PerformDataRequestAsync(() => _loginService.SignUpAsync(UserName, Email, Password, _imageStream, CancellationToken.None), false);
 	        if (result != null)
 	        {
 	            try
