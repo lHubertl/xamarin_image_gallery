@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using ImageGallery.Core.Commands;
 using ImageGallery.Core.Infrastructure;
+using ImageGallery.Views;
 using Prism.Navigation;
 using Prism.Services;
 
@@ -23,7 +24,7 @@ namespace ImageGallery.ViewModels
 
 	    private Task ExecuteAddImageCommand()
 	    {
-	        throw new System.NotImplementedException();
+            return NavigationService.NavigateAsync(nameof(UploadNewPicturePage));
 	    }
     }
 }

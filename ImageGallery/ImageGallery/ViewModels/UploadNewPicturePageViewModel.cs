@@ -1,8 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using ImageGallery.Core.Commands;
 using ImageGallery.Core.Infrastructure;
+using ImageGallery.Core.Managers;
+using ImageGallery.Core.Resources;
 using Prism.Navigation;
 using Prism.Services;
+using Xamarin.Forms;
 
 namespace ImageGallery.ViewModels
 {
@@ -43,9 +49,43 @@ namespace ImageGallery.ViewModels
             set => SetProperty(ref _latitude, value);
         }
 
+        private ImageSource _userImageSource = ImageSource.FromFile("image.png");
+        public ImageSource UserImageSource
+        {
+            get => _userImageSource;
+            set => SetProperty(ref _userImageSource, value);
+        }
+
+        public ICommand SelectImageCommand => new SingleExecutionCommand(ExecuteSelectImageCommand);
+        public ICommand SaveImageCommand => new SingleExecutionCommand(ExecuteSaveImageCommand);
+
         public UploadNewPicturePageViewModel(INavigationService navigationService, 
                                              IPageDialogService dialogService) : base(navigationService, dialogService)
         {
+        }
+
+        private async Task ExecuteSelectImageCommand()
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task ExecuteSaveImageCommand()
+        {
+            var validation = GetValidationManager();
+
+            if (!validation.IsValid)
+            {
+                var errorMessage = string.Join("\n", validation.Errors);
+                await UserNotificationAsync(errorMessage, Strings.Warning);
+                return;
+            }
+
+            IsBusy = true;
+        }
+
+        private ValidationManager GetValidationManager()
+        {
+            return ValidationManager.Create().Validate(() => Image != null, Strings.V_Image);
         }
     }
 }

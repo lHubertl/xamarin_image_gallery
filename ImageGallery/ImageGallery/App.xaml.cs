@@ -57,6 +57,8 @@ namespace ImageGallery
 
             containerRegistry.Register(typeof(ILoginService), typeof(LoginService));
             containerRegistry.RegisterForNavigation<ImagesPage, ImagesPageViewModel>();
+
+            containerRegistry.RegisterForNavigation<UploadNewPicturePage, UploadNewPicturePageViewModel>();
         }
 
         /// <summary>
