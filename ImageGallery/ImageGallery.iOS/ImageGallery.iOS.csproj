@@ -183,6 +183,7 @@
     <BundleResource Include="Resources\Default.png" />
     <BundleResource Include="Resources\Default@2x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="Resources\image.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -200,7 +201,7 @@
       <Name>ImageGallery.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ImageGallery\ImageGallery.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
+      <Project>{BE2A8FF7-115B-42D4-BA51-EB1E442D31E8}</Project>
       <Name>ImageGallery</Name>
     </ProjectReference>
   </ItemGroup>

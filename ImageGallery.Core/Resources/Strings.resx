@@ -127,7 +127,7 @@
     <value>Error</value>
   </data>
   <data name="E_CanNotFindPropertyInJson" xml:space="preserve">
-    <value>Can not find property in json</value>
+    <value>Cannot find property in json</value>
   </data>
   <data name="E_ConnectionFailed" xml:space="preserve">
     <value>Connection Failed</value>
@@ -157,15 +157,18 @@
     <value>Sing Up</value>
   </data>
   <data name="V_Email" xml:space="preserve">
-    <value>Email is invalid format</value>
+    <value>Email has invalid format</value>
   </data>
   <data name="V_Image" xml:space="preserve">
     <value>Select an image</value>
   </data>
   <data name="V_Password" xml:space="preserve">
-    <value>Password is invalid format</value>
+    <value>Password has invalid format</value>
   </data>
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
+  </data>
+    <data name="V_Location" xml:space="preserve">
+    <value>Cannot define location</value>
   </data>
 </root>

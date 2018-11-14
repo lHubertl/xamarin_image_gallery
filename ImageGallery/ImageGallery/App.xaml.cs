@@ -57,7 +57,10 @@ namespace ImageGallery
 
             containerRegistry.Register(typeof(ILoginService), typeof(LoginService));
             containerRegistry.Register(typeof(IImageService), typeof(ImageService));
+            containerRegistry.Register(typeof(IGeolocationService), typeof(GeolocationService));
             containerRegistry.RegisterForNavigation<ImagesPage, ImagesPageViewModel>();
+
+            containerRegistry.RegisterForNavigation<UploadNewPicturePage, UploadNewPicturePageViewModel>();
         }
 
         /// <summary>

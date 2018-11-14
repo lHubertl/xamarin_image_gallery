@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using ImageGallery.Core.Commands;
 using ImageGallery.Core.Infrastructure;
+using ImageGallery.Views;
 using ImageGallery.Models;
 using ImageGallery.Services;
 using Prism.Navigation;
@@ -49,8 +50,8 @@ namespace ImageGallery.ViewModels
 
 	    private Task ExecuteAddImageCommand()
 	    {
-	        throw new System.NotImplementedException();
-        }
+	        return NavigationService.NavigateAsync(nameof(UploadNewPicturePage));
+	    }
 
 	    private async Task ExecuteTapOnImageCommand(object arg)
 	    {
