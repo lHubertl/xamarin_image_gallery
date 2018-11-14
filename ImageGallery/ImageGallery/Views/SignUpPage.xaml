@@ -21,11 +21,9 @@
         VerticalOptions="Fill">
 
         <Image
-            HeightRequest="130"
             HorizontalOptions="Center"
             Source="{Binding UserImageSource}"
-            VerticalOptions="CenterAndExpand"
-            WidthRequest="130">
+            VerticalOptions="CenterAndExpand">
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding SelectImageCommand}" />
             </Image.GestureRecognizers>

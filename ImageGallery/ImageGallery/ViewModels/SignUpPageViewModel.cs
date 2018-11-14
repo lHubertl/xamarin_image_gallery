@@ -99,7 +99,7 @@ namespace ImageGallery.ViewModels
 	            _dataRepository.Set(DataType.Token, result.Token);
 	            _dataRepository.Set(DataType.AvatarUrl, result.AvatarUrl);
 
-	            // TODO: navigate to image page
+	            await NavigationService.NavigateAsync(nameof(ImagesPage));
 	        }
 
 	        IsBusy = false;
