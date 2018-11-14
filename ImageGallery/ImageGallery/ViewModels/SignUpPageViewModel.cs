@@ -46,7 +46,7 @@ namespace ImageGallery.ViewModels
             set => SetProperty(ref _password, value);
         }
 
-        private ImageSource _userImageSource;
+        private ImageSource _userImageSource = ImageSource.FromFile("user.png");
         public ImageSource UserImageSource
         {
             get => _userImageSource;
