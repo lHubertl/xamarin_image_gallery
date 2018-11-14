@@ -28,9 +28,9 @@
             
         </Image>
         
-        <Entry Placeholder="Description" />
+        <Entry Placeholder="Description" Text="{Binding Description}" />
         
-        <Entry Placeholder="#hashtag" />
+        <Entry Placeholder="#hashtag" Text="{Binding Hashtag}" />
                
     </StackLayout>
     
