@@ -62,6 +62,12 @@
     <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
     <PackageReference Include="Prism.Unity.Forms" Version="7.1.0.431" />
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>1.1.4.168</Version>
+    </PackageReference>
+    <PackageReference Include="Prism.Plugin.Popups">
+      <Version>2.1.0.228</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyServices\PicturePicker.cs" />
@@ -96,7 +102,7 @@
       <Name>ImageGallery.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ImageGallery\ImageGallery.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
+      <Project>{BE2A8FF7-115B-42D4-BA51-EB1E442D31E8}</Project>
       <Name>ImageGallery</Name>
     </ProjectReference>
   </ItemGroup>
