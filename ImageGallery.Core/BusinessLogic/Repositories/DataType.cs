@@ -2,6 +2,7 @@
 {
     public enum DataType
     {
-        Token
+        Token,
+        AvatarUrl,
     }
 }

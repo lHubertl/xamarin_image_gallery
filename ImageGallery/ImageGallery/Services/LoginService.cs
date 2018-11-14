@@ -13,14 +13,16 @@ namespace ImageGallery.Services
     public class LoginService : HttpBaseService, ILoginService
     {
         public async Task<IResponseData<LoginModel>> SignUpAsync(string userName, string email, string password,
-            Stream userImage, CancellationToken token)
+            MemoryStream imageStream, CancellationToken token)
         {
+            imageStream.Position = 0;
+
             var httpContent = new MultipartFormDataContent
             {
                 {new StringContent(userName), "username"},
                 {new StringContent(email), "email"},
                 {new StringContent(password), "password"},
-                {new StreamContent(userImage), "avatar"}
+                {new StreamContent(new MemoryStream(imageStream.ToArray())), "avatar", $"{userName}.jpg"}
             };
 
             var result = await PostAsync(new Uri(WebApi.SignUp), token, null, httpContent);

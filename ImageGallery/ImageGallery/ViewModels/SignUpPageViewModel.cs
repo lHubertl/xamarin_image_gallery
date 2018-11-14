@@ -20,7 +20,7 @@ namespace ImageGallery.ViewModels
 	{
 	    private readonly IDataRepository _dataRepository;
         private readonly ILoginService _loginService;
-	    private Stream _imageStream;
+	    private MemoryStream _imageStream;
 
         private string _userName;
         public string UserName
@@ -78,8 +78,9 @@ namespace ImageGallery.ViewModels
 	        {
 	            try
 	            {
-	                await SecureStorage.SetAsync(nameof(LoginModel.Token), result.Token);
-	            }
+	                await SecureStorage.SetAsync(DataType.Token.ToString(), result.Token);
+	                await SecureStorage.SetAsync(DataType.AvatarUrl.ToString(), result.AvatarUrl);
+                }
 	            catch (Exception ex)
 	            {
 	                // Possible that device doesn't support secure storage on device.
@@ -102,8 +103,7 @@ namespace ImageGallery.ViewModels
                 await stream.CopyToAsync(memoryStream);
                 memoryStream.Position = 0;
                 UserImageSource = ImageSource.FromStream(() => new MemoryStream(memoryStream.ToArray()));
-                _imageStream = stream;
-
+                _imageStream = memoryStream;
 	        }
         }
 

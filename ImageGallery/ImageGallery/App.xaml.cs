@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
 using ImageGallery.Core.BusinessLogic.Repositories;
-using ImageGallery.Models;
 using ImageGallery.Services;
 using Prism;
 using Prism.Ioc;
@@ -30,12 +30,10 @@ namespace ImageGallery
 
             try
             {
-                var oauthToken = await SecureStorage.GetAsync(nameof(LoginModel.Token));
+                var oauthToken = await SecureStorage.GetAsync(DataType.Token.ToString());
                 if (!string.IsNullOrEmpty(oauthToken))
                 {
-                    // Save token to the memory
-                    var dataRepository = Container.Resolve<IDataRepository>();
-                    dataRepository.Set(DataType.Token, oauthToken);
+                    await FillDataRepository(oauthToken);
 
                     // TODO: navigate to Image page
                     //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SignUpPage)}");
@@ -59,6 +57,22 @@ namespace ImageGallery
             containerRegistry.RegisterSingleton(typeof(IDataRepository), typeof(DataRepository));
 
             containerRegistry.Register(typeof(ILoginService), typeof(LoginService));
+        }
+
+        /// <summary>
+        /// Save user data to the memory
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        private async Task FillDataRepository(string token)
+        {
+            var dataRepository = Container.Resolve<IDataRepository>();
+
+            // Save user data to the memory
+            var avatar = await SecureStorage.GetAsync(DataType.AvatarUrl.ToString());
+
+            dataRepository.Set(DataType.Token, token);
+            dataRepository.Set(DataType.AvatarUrl, avatar);
         }
     }
 }
