@@ -56,6 +56,7 @@ namespace ImageGallery
             containerRegistry.RegisterSingleton(typeof(IDataRepository), typeof(DataRepository));
 
             containerRegistry.Register(typeof(ILoginService), typeof(LoginService));
+            containerRegistry.Register(typeof(IImageService), typeof(ImageService));
             containerRegistry.RegisterForNavigation<ImagesPage, ImagesPageViewModel>();
         }
 
