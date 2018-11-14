@@ -27,7 +27,6 @@
             <StackLayout>
                 <controls:FlexRepeaterView
                     Padding="20"
-                    BackgroundColor="Red"
                     ColumnSpacing="15"
                     HorizontalOptions="Fill"
                     ItemWidth="130"

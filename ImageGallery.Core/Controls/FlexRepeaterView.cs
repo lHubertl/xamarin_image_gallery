@@ -61,6 +61,11 @@ namespace ImageGallery.Core.Controls
 
             foreach (var child in children)
             {
+                if (currentRow >= RowDefinitions.Count)
+                {
+                    RowDefinitions.Add(new RowDefinition{ Height = GridLength.Auto });
+                }
+
                 child.WidthRequest = ItemWidth;
                 SetColumn(child, currentColumn++);
                 SetRow(child, currentRow);
