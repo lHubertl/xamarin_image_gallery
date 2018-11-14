@@ -35,9 +35,8 @@ namespace ImageGallery
                 {
                     await FillDataRepository(oauthToken);
 
-                    // TODO: navigate to Image page
-                    //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(SignUpPage)}");
-                    //return;
+                    await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(ImagesPage)}");
+                    return;
                 }
             }
             catch (Exception ex)
@@ -57,6 +56,7 @@ namespace ImageGallery
             containerRegistry.RegisterSingleton(typeof(IDataRepository), typeof(DataRepository));
 
             containerRegistry.Register(typeof(ILoginService), typeof(LoginService));
+            containerRegistry.RegisterForNavigation<ImagesPage, ImagesPageViewModel>();
         }
 
         /// <summary>

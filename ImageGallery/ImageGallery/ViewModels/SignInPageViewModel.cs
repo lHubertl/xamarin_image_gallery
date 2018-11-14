@@ -9,6 +9,7 @@ using ImageGallery.Core.Infrastructure;
 using ImageGallery.Core.Managers;
 using ImageGallery.Core.Resources;
 using ImageGallery.Services;
+using ImageGallery.Views;
 using Prism.Navigation;
 using Prism.Services;
 using Xamarin.Essentials;
@@ -90,7 +91,7 @@ namespace ImageGallery.ViewModels
 	            _dataRepository.Set(DataType.Token, result.Token);
 	            _dataRepository.Set(DataType.AvatarUrl, result.AvatarUrl);
 
-                // TODO: navigate to image page
+	            await NavigationService.NavigateAsync(nameof(ImagesPage));
             }
 
 	        IsBusy = false;
