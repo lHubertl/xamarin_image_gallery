@@ -24,6 +24,7 @@ namespace ImageGallery.ViewModels
 
         public ICommand ShowGifCommand => new SingleExecutionCommand(ExecuteShowGifCommand);
 	    public ICommand AddImageCommand => new SingleExecutionCommand(ExecuteAddImageCommand);
+        public ICommand TapOnImageCommand => new SingleExecutionCommand(ExecuteTapOnImageCommand);
 
 	    public ImagesPageViewModel(INavigationService navigationService, IPageDialogService dialogService, IImageService imageService) : base(navigationService, dialogService)
 	    {
@@ -50,5 +51,13 @@ namespace ImageGallery.ViewModels
 	    {
 	        throw new System.NotImplementedException();
         }
+
+	    private async Task ExecuteTapOnImageCommand(object arg)
+	    {
+	        if (arg is ImageModel imageModel)
+	        {
+                // TODO: open popup with large image
+	        }
+	    }
     }
 }

@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:ImageGallery.Core.Controls;assembly=ImageGallery.Core"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+    x:Name="BaseContent"
     prism:ViewModelLocator.AutowireViewModel="True"
     BackgroundColor="White">
 
@@ -43,6 +44,9 @@
                             HorizontalOptions="Start"
                             Spacing="0"
                             VerticalOptions="Start">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference BaseContent}, Path=BindingContext.TapOnImageCommand}" CommandParameter="{Binding .}" />
+                            </StackLayout.GestureRecognizers>
                             <Image
                                 HorizontalOptions="FillAndExpand"
                                 Source="{Binding SmallImageUrl}"
