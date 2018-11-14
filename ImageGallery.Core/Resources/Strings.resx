@@ -168,7 +168,7 @@
   <data name="Warning" xml:space="preserve">
     <value>Warning</value>
   </data>
-    <data name="V_Location" xml:space="preserve">
+  <data name="V_Location" xml:space="preserve">
     <value>Cannot define location</value>
   </data>
 </root>
