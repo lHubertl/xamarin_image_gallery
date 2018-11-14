@@ -22,7 +22,7 @@ namespace ImageGallery.Core.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Strings {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ImageGallery.Core.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ImageGallery.Core.Resources.Strings", typeof(Strings).Assembly);
@@ -51,7 +51,7 @@ namespace ImageGallery.Core.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Already have an Account?.
         /// </summary>
-        internal static string AlreadyHaveAccount {
+        public static string AlreadyHaveAccount {
             get {
                 return ResourceManager.GetString("AlreadyHaveAccount", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Can not find property in json.
         /// </summary>
-        internal static string E_CanNotFindPropertyInJson {
+        public static string E_CanNotFindPropertyInJson {
             get {
                 return ResourceManager.GetString("E_CanNotFindPropertyInJson", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Connection Failed.
         /// </summary>
-        internal static string E_ConnectionFailed {
+        public static string E_ConnectionFailed {
             get {
                 return ResourceManager.GetString("E_ConnectionFailed", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Json can not be empty.
         /// </summary>
-        internal static string E_JsonCanNotBeEmpy {
+        public static string E_JsonCanNotBeEmpy {
             get {
                 return ResourceManager.GetString("E_JsonCanNotBeEmpy", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Server Error.
         /// </summary>
-        internal static string E_ServerError {
+        public static string E_ServerError {
             get {
                 return ResourceManager.GetString("E_ServerError", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
-        internal static string Email {
+        public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string Error {
+        public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
-        internal static string Password {
+        public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sign In.
         /// </summary>
-        internal static string SignIn {
+        public static string SignIn {
             get {
                 return ResourceManager.GetString("SignIn", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Sing Up.
         /// </summary>
-        internal static string SingUp {
+        public static string SingUp {
             get {
                 return ResourceManager.GetString("SingUp", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to CANCEL.
         /// </summary>
-        internal static string U_Cancel {
+        public static string U_Cancel {
             get {
                 return ResourceManager.GetString("U_Cancel", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to RETRY.
         /// </summary>
-        internal static string U_Retry {
+        public static string U_Retry {
             get {
                 return ResourceManager.GetString("U_Retry", resourceCulture);
             }
@@ -171,9 +171,45 @@ namespace ImageGallery.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to User Name.
         /// </summary>
-        internal static string UserName {
+        public static string UserName {
             get {
                 return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email is invalid format.
+        /// </summary>
+        public static string V_Email {
+            get {
+                return ResourceManager.GetString("V_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select an image.
+        /// </summary>
+        public static string V_Image {
+            get {
+                return ResourceManager.GetString("V_Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is invalid format.
+        /// </summary>
+        public static string V_Password {
+            get {
+                return ResourceManager.GetString("V_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
     }

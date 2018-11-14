@@ -14,6 +14,13 @@ namespace ImageGallery.Core.Infrastructure
         protected INavigationService NavigationService { get; }
         protected IPageDialogService DialogService { get; }
 
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
+        }
+
         public ViewModelBase(
             INavigationService navigationService,
             IPageDialogService dialogService)
