@@ -3,6 +3,23 @@
     x:Class="ImageGallery.Views.SignInPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:extensions="clr-namespace:ImageGallery.Core.Extensions;assembly=ImageGallery.Core"
     xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
     prism:ViewModelLocator.AutowireViewModel="True"
-    NavigationPage.HasNavigationBar="False" />
+    NavigationPage.HasNavigationBar="False">
+
+    <StackLayout
+        Padding="20,40"
+        Spacing="20"
+        VerticalOptions="Center">
+
+        <Entry Placeholder="{extensions:Translation Email}" Text="{Binding Email}" />
+        <Entry
+            IsPassword="True"
+            Placeholder="{extensions:Translation Password}"
+            Text="{Binding Password}" />
+
+        <Button Command="{Binding SignInCommand}" Text="{extensions:Translation SingIn}" />
+
+    </StackLayout>
+</ContentPage>

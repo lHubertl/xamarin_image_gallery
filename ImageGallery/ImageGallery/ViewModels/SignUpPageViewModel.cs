@@ -3,12 +3,15 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ImageGallery.Constants;
 using ImageGallery.Core.BusinessLogic.Repositories;
 using ImageGallery.Core.Commands;
 using ImageGallery.Core.DependencyServices;
 using ImageGallery.Core.Infrastructure;
-using ImageGallery.Models;
+using ImageGallery.Core.Managers;
+using ImageGallery.Core.Resources;
 using ImageGallery.Services;
+using ImageGallery.Views;
 using Prism.Navigation;
 using Prism.Services;
 using Xamarin.Essentials;
@@ -68,8 +71,12 @@ namespace ImageGallery.ViewModels
 
 	    private async Task ExecuteSignUpCommand()
 	    {
-	        if (!IsDataValid())
-	        {
+	        var validation = GetValidationManager();
+
+            if (!validation.IsValid)
+            {
+                var errorMessage = string.Join("\n", validation.Errors);
+                await UserNotificationAsync(errorMessage, Strings.Warning);
                 return;
 	        }
 
@@ -88,9 +95,10 @@ namespace ImageGallery.ViewModels
 
                 // Save to the memory
 	            _dataRepository.Set(DataType.Token, result.Token);
+	            _dataRepository.Set(DataType.AvatarUrl, result.AvatarUrl);
 
-                // TODO: navigate to image page
-            }
+	            // TODO: navigate to image page
+	        }
 	    }
 
 	    private async Task ExecuteSelectImageCommand()
@@ -107,16 +115,22 @@ namespace ImageGallery.ViewModels
 	        }
         }
 
-	    private async Task ExecuteSignInCommand()
+	    private Task ExecuteSignInCommand()
 	    {
-	        // TODO: navigate to sign in page
+	        var navigationParameters = new NavigationParameters
+	        {
+	            { NavParamKeys.Email, Email },
+	            { NavParamKeys.Password, Password }
+            };
+
+	        return NavigationService.NavigateAsync(nameof(SignInPage), navigationParameters);
 	    }
 
-        private bool IsDataValid()
-	    {
-	        return !string.IsNullOrWhiteSpace(Email) &&
-	               !string.IsNullOrWhiteSpace(Password) &&
-	               _imageStream != null;
+        private ValidationManager GetValidationManager()
+        {
+            return ValidationManager.Create().Validate(() => !string.IsNullOrWhiteSpace(Email), Strings.V_Email)
+                .Validate(() => !string.IsNullOrWhiteSpace(Password), Strings.V_Password)
+                .Validate(() => _imageStream != null, Strings.V_Image);
 	    }
     }
 }
