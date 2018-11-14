@@ -9,10 +9,8 @@ using ImageGallery.Core.Infrastructure;
 using ImageGallery.Core.Managers;
 using ImageGallery.Core.Resources;
 using ImageGallery.Services;
-using ImageGallery.Views;
 using Prism.Navigation;
 using Prism.Services;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ImageGallery.ViewModels
