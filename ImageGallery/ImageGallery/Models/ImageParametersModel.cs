@@ -5,5 +5,6 @@
         public double Longitude { get; set; }
         public double Latitude { get; set; }
         public string Weather { get; set; }
+        public string Place => $"{Longitude}, {Latitude}";
     }
 }

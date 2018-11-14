@@ -20,13 +20,50 @@
             Priority="0" />
     </ContentPage.ToolbarItems>
 
-    <controls:FlexRepeaterView>
-        <controls:FlexRepeaterView.ItemTemplate>
-            <DataTemplate>
-                <StackLayout />
-            </DataTemplate>
-        </controls:FlexRepeaterView.ItemTemplate>
-    </controls:FlexRepeaterView>
+    <ScrollView>
+        <StackLayout>
 
+            <ActivityIndicator
+                HorizontalOptions="Center"
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                VerticalOptions="Center" />
+
+            <controls:FlexRepeaterView
+                Padding="20"
+                ColumnSpacing="15"
+                HorizontalOptions="Fill"
+                ItemWidth="130"
+                ItemsSource="{Binding Images}"
+                RowSpacing="15">
+                <controls:FlexRepeaterView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            HorizontalOptions="Start"
+                            Spacing="0"
+                            VerticalOptions="Start">
+                            <Image
+                                HorizontalOptions="FillAndExpand"
+                                Source="{Binding SmallImageUrl}"
+                                VerticalOptions="Fill" />
+                            <Label
+                                Margin="5,0"
+                                FontSize="Micro"
+                                LineBreakMode="TailTruncation"
+                                Text="{Binding Parameters.Weather}"
+                                TextColor="Black" />
+                            <Label
+                                Margin="5,0"
+                                FontSize="Micro"
+                                LineBreakMode="TailTruncation"
+                                Text="{Binding Parameters.Place}"
+                                TextColor="Gray" />
+                        </StackLayout>
+                    </DataTemplate>
+                </controls:FlexRepeaterView.ItemTemplate>
+            </controls:FlexRepeaterView>
+
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>
